@@ -8,8 +8,16 @@ const PlayerSelectView = ()=>{
     const [playerTwoName,setPlayerTwoName] = useState("")
 
     const handlePlayerTwoName = (e)=>{
-        setPlayerOneName(e.target.value)
+        setPlayerTwoName(e.target.value)
         console.log(playerTwoName)
+    }
+
+    const handleCrossFigure = (e)=>{
+        console.log(e.target)
+    }
+
+    const handleCircleFigure =(e) =>{
+        console.log(e.target)
     }
 
 
@@ -17,17 +25,17 @@ const PlayerSelectView = ()=>{
         <div>
             <form action="">
                 <label htmlFor="">Player 1</label>
-                <input onChange={(e)=setPlayerOneName(e.target.value)} type="text" placeholder="Player 1 name here"/>
+                <input onChange={(e)=>setPlayerOneName(e.target.value)} type="text" placeholder="Player 1 name here"/>
                 <br />
                 <label htmlFor="">Player 2</label>
-                <input onChange={(e)=>handlePlayerTwoName(e)} type="text" palceholer="Player 2 name here"/>
+                <input onChange={(e)=>handlePlayerTwoName(e)} type="text" placeholder="Player 2 name here"/>
             </form>
 
             {/* Figures to select */}
-            <div>
+            <div onClick={(e)=> handleCrossFigure(e)} className="figure cross">
                 x
             </div>
-            <div>
+            <div onClick={(e)=>handleCircleFigure(e)} className="figure circle">
                 o
             </div>
         </div>
