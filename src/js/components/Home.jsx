@@ -2,6 +2,7 @@ import React from "react";
 
 //Components
 import PlayerSelectView from "./PlayerSelectView.jsx"
+import LiveGamingView from "./LiveGamingView.jsx";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
@@ -10,12 +11,14 @@ import rigoImage from "../../img/rigo-baby.jpg";
 const Home = () => {
 	return (
 		<div>
+			<h2>Tic Tac Toe with React.js</h2>
+
 			{/* Player select view component */}
-			<PlayerSelectView/>
+			{/* <PlayerSelectView/> */}
 
 
 			{/* Live game view component */}
-
+			<LiveGamingView/>
 		</div>
 	);
 };
