@@ -1,48 +1,91 @@
 import React, { useState } from "react";
-
+import LiveGamingView from "./LiveGamingView.jsx";
 
 const PlayerSelectView = () => {
+    const [secondView, setSecondView] = useState(false);
+    const [playerOneName, setPlayerOneName] = useState("");
+    const [playerTwoName, setPlayerTwoName] = useState("");
+    const [startingFigure, setStartingFigure] = useState("");
 
-    const [playerOneName, setPlayerOneName] = useState("")
-    const [playerOneFigure, setPlayerOneFigure] = useState("")
-
-    const [playerTwoName, setPlayerTwoName] = useState("")
-    const [playerTwoFigure, setPlayerTwoFigure] = useState("")
+    const handlePlayerOneName = (e) => {
+        setPlayerOneName(e.target.value);
+    };
 
     const handlePlayerTwoName = (e) => {
-        setPlayerTwoName(e.target.value)
-        console.log(playerTwoName)
-    }
+        setPlayerTwoName(e.target.value);
+    };
 
     const handleCrossFigure = (e) => {
-        console.log(e.target)
-    }
-
-    const handleCircleFigure = (e) => {
-        console.log(e.target)
-    }
-
+        if (playerOneName.length > 0 && playerTwoName.length > 0) {
+            if (e.target.classList.contains("figure-cross")) {
+                setStartingFigure("x");
+                setSecondView(true);
+            }
+            if (e.target.classList.contains("figure-circle")) {
+                setStartingFigure("o");
+                setSecondView(true);
+            }
+        } else {
+            //console.log("Enter both names");
+        }
+    };
 
     return (
-        <div>
-            <form action="">
-                <label htmlFor="">Player 1</label>
-                <input onChange={(e) => setPlayerOneName(e.target.value)} type="text" placeholder="Player 1 name here" />
-                <br />
-                <label htmlFor="">Player 2</label>
-                <input onChange={(e) => handlePlayerTwoName(e)} type="text" placeholder="Player 2 name here" />
-            </form>
+        <div className="d-flex flex-column justify-content-center align-items-center min-vh-100 bg-light">
+            {!secondView && (
+                <div className="text-center p-4 bg-white border rounded shadow-sm w-100" style={{ maxWidth: "500px" }}>
+                    {/* Title */}
+                    <h3 className="mb-4 text-primary">Pick a weapon</h3>
 
-            {/* Figures to select */}
-            <div onClick={(e) => handleCrossFigure(e)} className="figure cross">
-                x
-            </div>
-            <div onClick={(e) => handleCircleFigure(e)} className="figure circle">
-                o
-            </div>
+                    {/* Name Inputs */}
+                    <div className="mb-3">
+                        <input
+                            value={playerOneName}
+                            onChange={handlePlayerOneName}
+                            type="text"
+                            placeholder="Player 1 username"
+                            className="form-control mb-2"
+                        />
 
+                        <input
+                            value={playerTwoName}
+                            onChange={handlePlayerTwoName}
+                            type="text"
+                            placeholder="Player 2 username"
+                            className="form-control"
+                        />
+                    </div>
+
+                    {/* X/O Buttons */}
+                    <div className="d-flex justify-content-between gap-3 mt-4">
+                        <button
+                            onClick={handleCrossFigure}
+                            type="button"
+                            className="btn btn-outline-warning figure-cross fs-1 flex-grow-1 py-3"
+                        >
+                            X
+                        </button>
+                        <button
+                            onClick={handleCrossFigure}
+                            type="button"
+                            className="btn btn-outline-primary figure-circle fs-1 flex-grow-1 py-3"
+                        >
+                            O
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Game View */}
+            {secondView && (
+                <LiveGamingView
+                    firstPlayerName={playerOneName}
+                    secondPlayerName={playerTwoName}
+                    figureThatStarts={startingFigure}
+                />
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default PlayerSelectView
+export default PlayerSelectView;
